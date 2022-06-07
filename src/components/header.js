@@ -6,7 +6,7 @@ const Header = () => {
             <div className="navbar-header navbar-dark d-none d-md-flex align-items-md-center">
                 <div className="navbar-brand navbar-brand-md">
                     <a href="index.html" className="d-inline-block">
-                        <img src="assets/images/logo.png" style={{width: "156px", height: '46px'}} alt=""/>
+                        <img src="assets/images/logo_white.png" style={{width: "156px", height: '46px'}} alt=""/>
                     </a>
                 </div>
                 <div className="navbar-brand navbar-brand-xs">
