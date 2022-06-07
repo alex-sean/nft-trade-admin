@@ -14,12 +14,20 @@ import ContactList from './components/contact_list';
 import ContactReply from './components/post_reply';
 import PartnerList from './components/partners_list';
 import PartnerAdd from './components/partner_add';
+import Login from './components/login';
 
 function Main() {
     return (
       <Router>
         <Switch>
           <Route exact path="/">
+            <div className='page-fill'>
+              <div className="page-content">
+                <Login/>
+              </div>
+            </div>
+          </Route>
+          <Route exact path="/users">
             <div className='page-fill'>
               <Header/>
               <div className="page-content">

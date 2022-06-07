@@ -30,13 +30,13 @@ const SideBar = () => {
                         </li>
                         <li className="nav-item">
                             <a href="/posts" className="nav-link">
-                                <i class="fas fa-sticky-note"></i>
+                                <i className="fas fa-sticky-note"></i>
                                 <span>Posts</span>
                             </a>
                         </li>
                         <li className="nav-item">
                             <a href="/contacts" className="nav-link">
-                                <i class="fas fa-envelope"></i>
+                                <i className="fas fa-envelope"></i>
                                 <span>Contacts</span>
                             </a>
                         </li>
