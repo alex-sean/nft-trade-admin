@@ -7,13 +7,22 @@ function queryString(params){
 }
 
 function getRequest(url, data){
-    return fetch(`${api_server + '/' + url}${data ? '?' + queryString(data) : ''}`)
+    let headers = {'Content-Type' : 'application/x-www-form-urlencoded'}
+    if (localStorage.getItem('token'))
+        headers.Authorization = localStorage.getItem('token')
+    return fetch(`${api_server + '/' + url}${data ? '?' + queryString(data) : ''}`, {
+        method: "GET",
+        headers,
+      })
 }
 
 function postRequest(url, data){
+    let headers = {'Content-Type' : 'application/x-www-form-urlencoded'}
+    if (localStorage.getItem('token'))
+        headers.Authorization = localStorage.getItem('token')
     return fetch(api_server + '/' + url, {
         method: "POST",
-        headers: {'Content-Type' : 'application/x-www-form-urlencoded'},
+        headers,
         body: queryString(data),
       })
 }

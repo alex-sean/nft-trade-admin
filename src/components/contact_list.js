@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-
-const contacts = [
-    {
-        name: 'Alex',
-        email: 'alex@alex.com',
-        type: 0,
-        content: 'I am alex',
-        reply: 'Reply',
-        status: 0
-    }
-]
+import {contactList} from '../adapter/api'
 
 const types = {
     NFT: 0,
@@ -23,9 +13,18 @@ const status = {
     DELETED: 2
 }
 
+
 const ContactList = () => {
     const [pageCount, setPageCount] = useState(0);
+    const [contacts, setContacts] = useState([])
 
+    useEffect(() => {
+        contactList(10, 0).then(res => res.json()).then(res => {
+            if (res.status === 200)
+                setContacts(res.data.contacts)
+        })
+    }, [])
+    
     const handlePageClick = (event) => {
         setPageCount(event.selected);
       };
@@ -124,7 +123,7 @@ const ContactList = () => {
                                 {
                                     contacts.map((contact, index) => {
                                         return (
-                                            <tr key={index}>
+                                            <tr key={contact.id}>
                                                 <td className="text-center">{contact.name}</td>
                                                 <td className="text-center">{contact.email}</td>
                                                 <td className="text-center">NFT</td>
