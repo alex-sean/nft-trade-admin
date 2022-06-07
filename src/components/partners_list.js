@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
+import {partnerList} from  '../adapter/api'
 
 const posts = [
     {
@@ -18,6 +19,15 @@ const status = {
 
 const PartnerList = () => {
     const [pageCount, setPageCount] = useState(0);
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+        partnerList(10, 0).then(res => res.json()).then(res => {
+            if (res.status === 200 && res.total > 0){
+                setPosts(res.data.posts)
+            }
+        })
+    })
 
     const handlePageClick = (event) => {
         setPageCount(event.selected);

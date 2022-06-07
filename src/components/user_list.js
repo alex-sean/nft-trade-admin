@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-
-const users = [
-    {
-        name: 'Alex',
-        address: '0x0000000000000000000000',
-        description: 'I am alex',
-        facebook_url: 'https://facebook.com',
-        website_url: 'https://facebook.com',
-        status: 0
-    }
-]
+import {userList} from '../adapter/api'
 
 const status = {
     PENDING: 0,
@@ -20,6 +10,14 @@ const status = {
 
 const UserList = () => {
     const [pageCount, setPageCount] = useState(0);
+    const [users, setUsers] = useState([])
+
+    useEffect(() => {
+        userList(10, 0).then(res => res.json()).then(res => {
+            if (res.status === 200 && res.total > 0)
+                setUsers(res.data.users)
+        })
+    }, [])
 
     const handlePageClick = (event) => {
         setPageCount(event.selected);
