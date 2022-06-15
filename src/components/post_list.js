@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
+import {blogList, deleteBlog} from '../adapter/api'
 
 const posts = [
     {
@@ -18,6 +19,22 @@ const status = {
 
 const PostList = () => {
     const [pageCount, setPageCount] = useState(0);
+    const [posts, setPosts] = useState([])
+
+    useEffect(() => {
+        blogList(10, 0).then(res => res.json()).then(res => {
+            if (res.status === 200 && res.data.total > 0)
+                setPosts(res.data.blogs)
+        })
+    }, [])
+
+    const ignore = (e) => {
+        let post = e.post
+        deleteBlog(post.id).then(res => res.json()).then(res => {
+            if (res.status === 200)
+                window.location.reload(false);
+        })
+    }
 
     const handlePageClick = (event) => {
         setPageCount(event.selected);
@@ -117,7 +134,7 @@ const PostList = () => {
                                                 <td className="text-center">{post.status}</td>
                                                 <td className="text-center">
                                                     <a className="ryma-btn-cursor" ><h5 className="m-0 p-0"><span className="badge badge-primary js-token-detail-image">List</span></h5></a>
-                                                    <a className="ryma-btn-cursor" ><h5 className="m-0 p-0"><span className="badge badge-primary js-token-detail-image">Delete</span></h5></a>
+                                                    <a onClick={e => ignore({post})} className="ryma-btn-cursor" ><h5 className="m-0 p-0"><span className="badge badge-primary js-token-detail-image">Delete</span></h5></a>
                                                 </td>
                                             </tr>
                                         )
