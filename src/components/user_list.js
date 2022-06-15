@@ -14,7 +14,7 @@ const UserList = () => {
 
     const getUsers = () => {
         userList(10, 0).then(res => res.json()).then(res => {
-            if (res.status === 200)
+            if (res.status === 200 && res.data.total > 0)
                 setUsers(res.data.users)
         })
     }
@@ -31,7 +31,7 @@ const UserList = () => {
         let user = e.user
         verifyUser(user.id, 1).then(res => res.json()).then(res => {
             if (res.status === 200)
-                getUsers()
+                window.location.reload(false);
         })
     }
 
@@ -39,7 +39,7 @@ const UserList = () => {
         let user = e.user
         deleteUser(user.id).then(res => res.json()).then(res => {
             if (res.status === 200)
-                getUsers()
+                window.location.reload(false);
         })
     }
 

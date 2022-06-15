@@ -20,7 +20,7 @@ const ContactList = () => {
 
     useEffect(() => {
         contactList(10, 0).then(res => res.json()).then(res => {
-            if (res.status === 200 && res.total > 0)
+            if (res.status === 200 && res.data.total > 0)
                 setContacts(res.data.contacts)
         })
     }, [])
