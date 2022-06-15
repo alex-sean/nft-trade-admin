@@ -16,12 +16,12 @@ function getRequest(url, data){
       })
 }
 
-function postRequest(url, data){
+function postRequest(url, data, method = 'POST'){
     let headers = {'Content-Type' : 'application/x-www-form-urlencoded'}
     if (localStorage.getItem('token'))
         headers.Authorization = localStorage.getItem('token')
     return fetch(api_server + '/' + url, {
-        method: "POST",
+        method,
         headers,
         body: queryString(data),
       })
@@ -40,7 +40,7 @@ function blogList(limit, offset){
 }
 
 function deleteBlog(id){
-    return postRequest('blog/delete', {id})
+    return postRequest('blog/delete', {id}, 'DELETE')
 }
 
 function addPartner(title, thumbnail, description, url){
@@ -52,7 +52,7 @@ function partnerList(limit, offset){
 }
 
 function deletePartner(id){
-    return postRequest('partner/delete', {id})
+    return postRequest('partner/delete', {id}, 'DELETE')
 }
 
 function addContact(name, email, type, content){
@@ -87,8 +87,8 @@ function verifyUser(id, status){
     return postRequest('user/verify', {id, status})
 }
 
-function deleteUser(id, status){
-    return postRequest('user/delete', {id, status})
+function deleteUser(id){
+    return postRequest('user/delete', {id}, 'DELETE')
 }
 
 module.exports = {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import {userList} from '../adapter/api'
+import {userList, verifyUser, deleteUser} from '../adapter/api'
 
 const status = {
     PENDING: 0,
@@ -12,16 +12,36 @@ const UserList = () => {
     const [pageCount, setPageCount] = useState(0);
     const [users, setUsers] = useState([])
 
-    useEffect(() => {
+    const getUsers = () => {
         userList(10, 0).then(res => res.json()).then(res => {
-            if (res.status === 200 && res.total > 0)
+            if (res.status === 200)
                 setUsers(res.data.users)
         })
+    }
+
+    useEffect(() => {
+        getUsers()
     }, [])
 
     const handlePageClick = (event) => {
         setPageCount(event.selected);
-      };
+    };
+
+    const verify = (e) => {
+        let user = e.user
+        verifyUser(user.id, 1).then(res => res.json()).then(res => {
+            if (res.status === 200)
+                getUsers()
+        })
+    }
+
+    const ignore = (e) => {
+        let user = e.user
+        deleteUser(user.id).then(res => res.json()).then(res => {
+            if (res.status === 200)
+                getUsers()
+        })
+    }
 
     return (
         <div style={{width: '100%'}}>
@@ -114,8 +134,8 @@ const UserList = () => {
                                                 <td className="text-center"><a href={user.website_url}>{user.website_url}</a></td>
                                                 <td className="text-center">{user.status}</td>
                                                 <td className="text-center">
-                                                    <a className="ryma-btn-cursor" ><h5 className="m-0 p-0"><span className="badge badge-primary js-token-detail-image">Verify</span></h5></a>
-                                                    <a className="ryma-btn-cursor" ><h5 className="m-0 p-0"><span className="badge badge-primary js-token-detail-image">Ignore</span></h5></a>
+                                                    <a onClick={e => verify({user})} className="ryma-btn-cursor" ><h5 className="m-0 p-0"><span className="badge badge-primary js-token-detail-image">Verify</span></h5></a>
+                                                    <a onClick={e => ignore({user})} className="ryma-btn-cursor" ><h5 className="m-0 p-0"><span className="badge badge-primary js-token-detail-image">Ignore</span></h5></a>
                                                 </td>
                                             </tr>
                                         )

@@ -3,8 +3,8 @@ import ReactPaginate from 'react-paginate';
 import { login } from '../adapter/api';
 
 export default function Login(){
-    const [name, setName] = useState('');
-    const [password, setPassword] = useState('');
+    const [name, setName] = useState('admin@admin.com');
+    const [password, setPassword] = useState('adminroot123!@#');
 
     const handleSubmit = (event) => {
         login(name, password).then(response =>(response.json())).then(res => {
