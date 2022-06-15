@@ -35,6 +35,10 @@ function addBlog(title, thumbnail, description, url, duration){
     return postRequest('blog/add', {title, thumbnail, description, url, duration})
 }
 
+function blogList(limit, offset){
+    return getRequest('blog/list', {limit, offset})
+}
+
 function deleteBlog(id){
     return postRequest('blog/delete', {id})
 }
@@ -59,6 +63,10 @@ function contactList(limit, offset){
     return getRequest('contact/list', {limit, offset})
 }
 
+function replyContact(id, reply){
+    return postRequest('contact/reply', {id, reply})
+}
+
 function addUser(name, email, description, twitter_account, address, avatar){
     return postRequest('user/add', {name, email, description, twitter_account, address, avatar})
 }
@@ -79,18 +87,25 @@ function verifyUser(id, status){
     return postRequest('user/verify', {id, status})
 }
 
+function deleteUser(id, status){
+    return postRequest('user/delete', {id, status})
+}
+
 module.exports = {
     login,
     addBlog,
+    blogList,
     deleteBlog,
     addPartner,
     partnerList,
     deletePartner,
     addContact,
     contactList,
+    replyContact,
     addUser,
     userList,
     getUser,
     updateUser,
     verifyUser,
+    deleteUser,
 }
