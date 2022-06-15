@@ -31,7 +31,7 @@ function Main() {
             <div className='page-fill'>
               <Header/>
               <div className="page-content">
-                <SideBar/>
+                <SideBar link="users"/>
                 <UserList/>
               </div>
             </div>
@@ -40,7 +40,7 @@ function Main() {
             <div className='page-fill'>
               <Header/>
               <div className="page-content">
-                <SideBar/>
+                <SideBar link="tokens"/>
                 <TokenList/>
               </div>
             </div>
@@ -49,7 +49,7 @@ function Main() {
             <div className='page-fill'>
               <Header/>
               <div className="page-content">
-                <SideBar/>
+                <SideBar link="posts"/>
                 <PostList/>
               </div>
             </div>
@@ -58,7 +58,7 @@ function Main() {
             <div className='page-fill'>
               <Header/>
               <div className="page-content">
-                <SideBar/>
+                <SideBar link="posts"/>
                 <PostAdd/>
               </div>
             </div>
@@ -67,7 +67,7 @@ function Main() {
             <div className='page-fill'>
               <Header/>
               <div className="page-content">
-                <SideBar/>
+                <SideBar link="contacts"/>
                 <ContactList/>
               </div>
             </div>
@@ -76,7 +76,7 @@ function Main() {
             <div className='page-fill'>
               <Header/>
               <div className="page-content">
-                <SideBar/>
+                <SideBar link="contacts"/>
                 <ContactReply/>
               </div>
             </div>
@@ -85,7 +85,7 @@ function Main() {
             <div className='page-fill'>
               <Header/>
               <div className="page-content">
-                <SideBar/>
+                <SideBar link="partners"/>
                 <PartnerList/>
               </div>
             </div>
@@ -94,7 +94,7 @@ function Main() {
             <div className='page-fill'>
               <Header/>
               <div className="page-content">
-                <SideBar/>
+                <SideBar link="partners"/>
                 <PartnerAdd/>
               </div>
             </div>
