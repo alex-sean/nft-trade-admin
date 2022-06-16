@@ -63,6 +63,10 @@ function contactList(limit, offset){
     return getRequest('contact/list', {limit, offset})
 }
 
+function getContact(id){
+    return getRequest('contact/detail', {id})
+}
+
 function replyContact(id, reply){
     return postRequest('contact/reply', {id, reply})
 }
@@ -100,6 +104,7 @@ module.exports = {
     partnerList,
     deletePartner,
     addContact,
+    getContact,
     contactList,
     replyContact,
     addUser,

@@ -29,6 +29,11 @@ const ContactList = () => {
         setPageCount(event.selected);
       };
 
+    const handleReply = (item) => {
+        localStorage.setItem('contactId', item.id)
+        window.location.href = '/reply_contact'
+    }
+
     return (
         <div style={{width: '100%'}}>
             <div className="content-wrapper">
@@ -131,7 +136,7 @@ const ContactList = () => {
                                                 <td className="text-center">{contact.reply}</td>
                                                 <td className="text-center">Replied</td>
                                                 <td className="text-center">
-                                                    <a className="ryma-btn-cursor" href="/reply_contact"><h5 className="m-0 p-0"><span className="badge badge-primary js-token-detail-image">Reply</span></h5></a>
+                                                    <a className="ryma-btn-cursor" onClick={e => handleReply(contact)}><h5 className="m-0 p-0"><span className="badge badge-primary js-token-detail-image">Reply</span></h5></a>
                                                 </td>
                                             </tr>
                                         )

@@ -37,7 +37,11 @@ const UserList = () => {
 
     const ignore = (e) => {
         let user = e.user
-        deleteUser(user.id).then(res => res.json()).then(res => {
+        // deleteUser(user.id).then(res => res.json()).then(res => {
+        //     if (res.status === 200)
+        //         window.location.reload(false);
+        // })
+        verifyUser(user.id, 2).then(res => res.json()).then(res => {
             if (res.status === 200)
                 window.location.reload(false);
         })

@@ -11,7 +11,7 @@ import PostList from './components/post_list';
 import ReactDOM from 'react-dom/client';
 import PostAdd from './components/post_add';
 import ContactList from './components/contact_list';
-import ContactReply from './components/post_reply';
+import ContactReply from './components/contact_reply';
 import PartnerList from './components/partners_list';
 import PartnerAdd from './components/partner_add';
 import Login from './components/login';
