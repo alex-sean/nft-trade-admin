@@ -62,11 +62,11 @@ const PostAdd = () => {
                             </div>
 
                             <div id="thumbnails">
-                            <FileUploader
-                                handleChange={handleFileChange}
-                                name="file"
-                                types={fileTypes}
-                                />
+                                <FileUploader
+                                    handleChange={handleFileChange}
+                                    name="file"
+                                    types={fileTypes}
+                                    />
                             </div>
 
                             <div className="centered-row">

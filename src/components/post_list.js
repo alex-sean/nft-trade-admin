@@ -2,15 +2,6 @@ import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import {blogList, deleteBlog} from '../adapter/api'
 
-const posts = [
-    {
-        name: 'Alex',
-        description: 'I am alex',
-        url: 'https://localhost',
-        status: 0
-    }
-]
-
 const status = {
     PENDING: 0,
     LISTED: 1,

@@ -1,7 +1,31 @@
-import React from 'react';
-import Thumbnail from './thumbnail';
+import React, { useState } from 'react';
+import { FileUploader } from "react-drag-drop-files";
+import { addPartner } from '../adapter/api';
 
 const PartnerAdd = () => {
+    const fileTypes = ["JPEG", "JPG", "PNG", "GIF"];
+    const [thumbnail, setThumbnail] = useState(null);
+    const [title, setTitle] = useState('');
+    const [description, setDescription] = useState('');
+    const [url, setUrl] = useState('');
+    
+    const handleFileChange = (file) => {
+        setThumbnail(file);
+    };
+    
+    const handleSubmit = () => {
+        if (!title || !description || !url){
+            return
+        }
+
+        addPartner(title, thumbnail, description, url).then(response =>(response.json())).then(res => {
+            if (res.status === 200) {
+                window.location.href='/partners'
+            } else
+                alert(res.error)
+        })
+    };
+
     return (
         <div style={{width: '100%'}}>
             <div className="content-wrapper">
@@ -20,29 +44,33 @@ const PartnerAdd = () => {
                         <div className="card-body">
                             <div className="form-group">
                                 <label>Title:</label>
-                                <input id="name" type="text" className="form-control" placeholder=""/>
-                                <span className="form-text text-danger" >Please input the title</span>
+                                <input value={title} onChange={(e) => setTitle(e.target.value)} id="name" type="text" className="form-control" placeholder=""/>
+                                {title? '' : (<span className="form-text text-danger" >Please input the title</span>)}
                             </div>
 
                             <div className="form-group">
                                 <label>Description:</label>
-                                <textarea className="form-control" placeholder=""/>
-                                <span className="form-text text-danger" >Please input the description</span>
+                                <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="form-control" placeholder=""/>
+                                {description? '' : (<span className="form-text text-danger" >Please input the description</span>)}
                             </div>
 
                             <div className="form-group">
                                 <label>URL:</label>
-                                <input id="name" type="text" className="form-control" placeholder=""/>
-                                <span className="form-text text-danger" >Please input the url</span>
+                                <input value={url} onChange={(e) => setUrl(e.target.value)} id="url" type="text" className="form-control" placeholder=""/>
+                                {url? '' : (<span className="form-text text-danger" >Please input the url</span>)}
                             </div>
 
                             <div id="thumbnails">
-                                <Thumbnail/>
+                                <FileUploader
+                                    handleChange={handleFileChange}
+                                    name="file"
+                                    types={fileTypes}
+                                    />
                             </div>
 
                             <div className="centered-row">
                                 <button type="button" className="btn btn-primary" >Preview<i className="icon-paperplane ml-2"></i></button>
-                                <button type="button" className="btn btn-primary" >Add<i className="icon-paperplane ml-2"></i></button>
+                                <button type="button" className="btn btn-primary" onClick={handleSubmit}>Add<i className="icon-paperplane ml-2"></i></button>
                             </div>
                         </div>
                     </div>

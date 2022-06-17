@@ -1,15 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
-import {partnerList} from  '../adapter/api'
-
-const posts = [
-    {
-        name: 'Alex',
-        description: 'I am alex',
-        url: 'https://localhost',
-        status: 0
-    }
-]
+import {partnerList, deletePartner} from  '../adapter/api'
 
 const status = {
     PENDING: 0,
@@ -24,10 +15,18 @@ const PartnerList = () => {
     useEffect(() => {
         partnerList(10, 0).then(res => res.json()).then(res => {
             if (res.status === 200 && res.data.total > 0){
-                setPosts(res.data.posts)
+                setPosts(res.data.partners)
             }
         })
     })
+
+    const remove = (e) => {
+        let post = e.post
+        deletePartner(post.id).then(res => res.json()).then(res => {
+            if (res.status === 200)
+                window.location.reload(false);
+        })
+    }
 
     const handlePageClick = (event) => {
         setPageCount(event.selected);
@@ -121,13 +120,13 @@ const PartnerList = () => {
                                     posts.map((post, index) => {
                                         return (
                                             <tr key={index}>
-                                                <td className="text-center">{post.name}</td>
+                                                <td className="text-center">{post.title}</td>
                                                 <td className="text-center">{post.description}</td>
                                                 <td className="text-center"><a href={post.url}>{post.url}</a></td>
                                                 <td className="text-center">{post.status}</td>
                                                 <td className="text-center">
                                                     <a className="ryma-btn-cursor" ><h5 className="m-0 p-0"><span className="badge badge-primary js-token-detail-image">List</span></h5></a>
-                                                    <a className="ryma-btn-cursor" ><h5 className="m-0 p-0"><span className="badge badge-primary js-token-detail-image">Delete</span></h5></a>
+                                                    <a onClick={e => remove({post})} className="ryma-btn-cursor" ><h5 className="m-0 p-0"><span className="badge badge-primary js-token-detail-image">Delete</span></h5></a>
                                                 </td>
                                             </tr>
                                         )

@@ -57,7 +57,7 @@ function deleteBlog(id){
 }
 
 function addPartner(title, thumbnail, description, url){
-    return postRequest('partner/add', {title, thumbnail, description, url})
+    return formRequest('partner/add', {title, thumbnail, description, url})
 }
 
 function partnerList(limit, offset){
