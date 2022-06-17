@@ -15,10 +15,15 @@ const PostAdd = () => {
     };
 
     const handleSubmit = () => {
+        if (!title || !description || !url){
+            return
+        }
+
         addBlog(title, thumbnail, description, url, duration).then(response =>(response.json())).then(res => {
-            if (res.status !== 200) {
+            if (res.status === 200) {
                 window.location.href='/posts'
-            }
+            } else
+                alert(res.error)
         })
     };
 
@@ -41,19 +46,19 @@ const PostAdd = () => {
                             <div className="form-group">
                                 <label>Title:</label>
                                 <input value={title} onChange={(e) => setTitle(e.target.value)} id="name" type="text" className="form-control" placeholder=""/>
-                                <span className="form-text text-danger" >Please input the title</span>
+                                {title? '' : (<span className="form-text text-danger" >Please input the title</span>)}
                             </div>
 
                             <div className="form-group">
                                 <label>Description:</label>
                                 <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="form-control" placeholder=""/>
-                                <span className="form-text text-danger" >Please input the description</span>
+                                {description? '' : (<span className="form-text text-danger" >Please input the description</span>)}
                             </div>
 
                             <div className="form-group">
                                 <label>URL:</label>
                                 <input value={url} onChange={(e) => setUrl(e.target.value)} id="url" type="text" className="form-control" placeholder=""/>
-                                <span className="form-text text-danger" >Please input the url</span>
+                                {url? '' : (<span className="form-text text-danger" >Please input the url</span>)}
                             </div>
 
                             <div id="thumbnails">

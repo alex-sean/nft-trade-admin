@@ -27,12 +27,25 @@ function postRequest(url, data, method = 'POST'){
       })
 }
 
+function formRequest(url, data){
+    let headers = {'Authorization' : localStorage.getItem('token')}
+    let params = new FormData();
+    Object.keys(data).forEach(key => {
+        params.append(key, data[key])
+    })
+    return fetch(api_server + '/' + url, {
+        method: 'POST',
+        headers,
+        body: params,
+      })
+}
+
 function login(email, password){
     return postRequest('admin/login', {email, password})
 }
 
 function addBlog(title, thumbnail, description, url, duration){
-    return postRequest('blog/add', {title, thumbnail, description, url, duration})
+    return formRequest('blog/add', {title, thumbnail, description, url, duration})
 }
 
 function blogList(limit, offset){
