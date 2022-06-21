@@ -48,8 +48,8 @@ function addBlog(title, thumbnail, description, url, duration){
     return formRequest('blog/add', {title, thumbnail, description, url, duration})
 }
 
-function blogList(limit, offset){
-    return getRequest('blog/list', {limit, offset})
+function blogList(limit, offset, title, content, status){
+    return getRequest('blog/list', {limit, offset, title, content, status})
 }
 
 function deleteBlog(id){
@@ -60,8 +60,8 @@ function addPartner(title, thumbnail, description, url){
     return formRequest('partner/add', {title, thumbnail, description, url})
 }
 
-function partnerList(limit, offset){
-    return getRequest('partner/list', {limit, offset})
+function partnerList(limit, offset, title, content, status){
+    return getRequest('partner/list', {limit, offset, title, content, status})
 }
 
 function deletePartner(id){
@@ -72,8 +72,8 @@ function addContact(name, email, type, content){
     return postRequest('contact/add', {name, email, type, content})
 }
 
-function contactList(limit, offset){
-    return getRequest('contact/list', {limit, offset})
+function contactList(limit, offset, name, email, content, type, status){
+    return getRequest('contact/list', {limit, offset, name, email, content, type, status})
 }
 
 function getContact(id){
@@ -88,8 +88,8 @@ function addUser(name, email, description, twitter_account, address, avatar){
     return postRequest('user/add', {name, email, description, twitter_account, address, avatar})
 }
 
-function userList(limit, offset){
-    return getRequest('user/list', {limit, offset})
+function userList(limit, offset, name, address, description, status){
+    return getRequest('user/list', {limit, offset, name, address, description, status})
 }
 
 function getUser(address){

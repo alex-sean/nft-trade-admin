@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import {contactList} from '../adapter/api'
 
-const types = {
+const TYPE_DATA = {
     NFT: 0,
     TRADE: 1
 }
 
-const status = {
+const STATUS_DATA = {
     PENDING: 0,
     LISTED: 1,
     DELETED: 2
@@ -17,12 +17,21 @@ const status = {
 const ContactList = () => {
     const [pageCount, setPageCount] = useState(0);
     const [contacts, setContacts] = useState([])
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [content, setContent] = useState('')
+    const [type, setType] = useState('')
+    const [status, setStatus] = useState('')
 
-    useEffect(() => {
-        contactList(10, 0).then(res => res.json()).then(res => {
-            if (res.status === 200 && res.data.total > 0)
+    const getData = () => {
+        contactList(10, 0, name, email, content, type, status).then(res => res.json()).then(res => {
+            if (res.status === 200)
                 setContacts(res.data.contacts)
         })
+    }
+
+    useEffect(() => {
+        getData()
     }, [])
     
     const handlePageClick = (event) => {
@@ -52,29 +61,29 @@ const ContactList = () => {
                                         <div className="form-group row">
                                             <label className="col-form-label col-lg-2">Name</label>
                                             <div className="col-lg-10">
-                                                <input id="search_name" type="text" className="form-control" />
+                                                <input value={name} onChange={(e) => setName(e.target.value)} id="search_name" type="text" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label className="col-form-label col-lg-2">Email</label>
                                             <div className="col-lg-10">
-                                                <input id="search_name" type="text" className="form-control" />
+                                                <input value={email} onChange={(e) => setEmail(e.target.value)} id="search_name" type="text" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label className="col-form-label col-lg-2">Content</label>
                                             <div className="col-lg-10">
-                                                <input id="search_name" type="text" className="form-control" />
+                                                <input value={content} onChange={(e) => setContent(e.target.value)} id="search_name" type="text" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label className="col-form-label col-lg-2">Type</label>
                                             <div className="col-lg-10">
-                                                <select id="search_category" className="form-control">
-                                                    <option value="0">All</option>
+                                                <select value={type} onChange={(e) => setType(e.target.value)} id="search_category" className="form-control">
+                                                    <option value="">All</option>
                                                     {
-                                                        Object.keys(types).map((type, index) => {
-                                                            return (<option value={types[type]} key={index}>{type}</option>)
+                                                        Object.keys(TYPE_DATA).map((type, index) => {
+                                                            return (<option value={TYPE_DATA[type]} key={index}>{type}</option>)
                                                         })
                                                     }
                                                 </select>
@@ -83,11 +92,11 @@ const ContactList = () => {
                                         <div className="form-group row">
                                             <label className="col-form-label col-lg-2">Status</label>
                                             <div className="col-lg-10">
-                                                <select id="search_category" className="form-control">
-                                                    <option value="0">All</option>
+                                                <select value={status} onChange={(e) => setStatus(e.target.value)} id="search_category" className="form-control">
+                                                    <option value="">All</option>
                                                     {
-                                                        Object.keys(status).map((key, index) => {
-                                                            return (<option value={status[key]} key={index}>{key}</option>)
+                                                        Object.keys(STATUS_DATA).map((key, index) => {
+                                                            return (<option value={STATUS_DATA[key]} key={index}>{key}</option>)
                                                         })
                                                     }
                                                 </select>
@@ -95,7 +104,7 @@ const ContactList = () => {
                                         </div>
                                     </fieldset>
                                     <div className="text-center">
-                                        <button type="button" className="btn btn-primary">Filter <i className="fas fa-search ml-2"></i></button>
+                                        <button onClick={getData} type="button" className="btn btn-primary">Filter <i className="fas fa-search ml-2"></i></button>
                                     </div>
                                 </div>
                             </div>

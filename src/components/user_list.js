@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import {userList, verifyUser, deleteUser} from '../adapter/api'
 
-const status = {
+const STATUS_DATA = {
     PENDING: 0,
     VERIFIED: 1,
     IGNORED: 2
@@ -11,10 +11,14 @@ const status = {
 const UserList = () => {
     const [pageCount, setPageCount] = useState(0);
     const [users, setUsers] = useState([])
+    const [name, setName] = useState('')
+    const [address, setAddress] = useState('')
+    const [description, setDescription] = useState('')
+    const [status, setStatus] = useState('')
 
     const getUsers = () => {
-        userList(10, 0).then(res => res.json()).then(res => {
-            if (res.status === 200 && res.data.total > 0)
+        userList(10, 0, name, address, description, status).then(res => res.json()).then(res => {
+            if (res.status === 200)
                 setUsers(res.data.users)
         })
     }
@@ -65,29 +69,29 @@ const UserList = () => {
                                         <div className="form-group row">
                                             <label className="col-form-label col-lg-2">Name</label>
                                             <div className="col-lg-10">
-                                                <input id="search_name" type="text" className="form-control" />
+                                                <input value={name} onChange={(e) => setName(e.target.value)} id="search_name" type="text" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label className="col-form-label col-lg-2">Address</label>
                                             <div className="col-lg-10">
-                                                <input id="search_name" type="text" className="form-control" />
+                                                <input value={address} onChange={(e) => setAddress(e.target.value)} id="search_name" type="text" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label className="col-form-label col-lg-2">Description</label>
                                             <div className="col-lg-10">
-                                                <input id="search_name" type="text" className="form-control" />
+                                                <input value={description} onChange={(e) => setDescription(e.target.value)} id="search_name" type="text" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label className="col-form-label col-lg-2">Status</label>
                                             <div className="col-lg-10">
-                                                <select id="search_category" className="form-control">
-                                                    <option value="0">All</option>
+                                                <select value={status} onChange={(e) => setStatus(e.target.value)} id="search_category" className="form-control">
+                                                    <option value="">All</option>
                                                     {
-                                                        Object.keys(status).map((key, index) => {
-                                                            return (<option value={status[key]} key={index}>{key}</option>)
+                                                        Object.keys(STATUS_DATA).map((key, index) => {
+                                                            return (<option value={STATUS_DATA[key]} key={index}>{key}</option>)
                                                         })
                                                     }
                                                 </select>
@@ -95,7 +99,7 @@ const UserList = () => {
                                         </div>
                                     </fieldset>
                                     <div className="text-center">
-                                        <button type="button" className="btn btn-primary">Filter <i className="fas fa-search ml-2"></i></button>
+                                        <button onClick={getUsers} type="button" className="btn btn-primary">Filter <i className="fas fa-search ml-2"></i></button>
                                     </div>
                                 </div>
                             </div>

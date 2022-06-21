@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import {blogList, deleteBlog} from '../adapter/api'
 
-const status = {
+const STATUS_DATA = {
     PENDING: 0,
     LISTED: 1,
     DELETED: 2
@@ -10,13 +10,20 @@ const status = {
 
 const PostList = () => {
     const [pageCount, setPageCount] = useState(0);
-    const [posts, setPosts] = useState([])
+    const [data, setData] = useState([])
+    const [title, setTitle] = useState('')
+    const [content, setContent] = useState('')
+    const [status, setStatus] = useState('')
+
+    const getData = () => {
+        blogList(10, 0, title, content, status).then(res => res.json()).then(res => {
+            if (res.status === 200)
+                setData(res.data.blogs)
+        })
+    }
 
     useEffect(() => {
-        blogList(10, 0).then(res => res.json()).then(res => {
-            if (res.status === 200 && res.data.total > 0)
-                setPosts(res.data.blogs)
-        })
+        getData()
     }, [])
 
     const ignore = (e) => {
@@ -63,23 +70,23 @@ const PostList = () => {
                                         <div className="form-group row">
                                             <label className="col-form-label col-lg-2">Title</label>
                                             <div className="col-lg-10">
-                                                <input id="search_name" type="text" className="form-control" />
+                                                <input value={title} onChange={(e) => setTitle(e.target.value)} id="search_name" type="text" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label className="col-form-label col-lg-2">Content</label>
                                             <div className="col-lg-10">
-                                                <input id="search_name" type="text" className="form-control" />
+                                                <input value={content} onChange={(e) => setContent(e.target.value)} id="search_name" type="text" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label className="col-form-label col-lg-2">Status</label>
                                             <div className="col-lg-10">
-                                                <select id="search_category" className="form-control">
-                                                    <option value="0">All</option>
+                                                <select value={status} onChange={(e) => setStatus(e.target.value)} id="search_category" className="form-control">
+                                                    <option value="">All</option>
                                                     {
-                                                        Object.keys(status).map((key, index) => {
-                                                            return (<option value={status[key]} key={index}>{key}</option>)
+                                                        Object.keys(STATUS_DATA).map((key, index) => {
+                                                            return (<option value={STATUS_DATA[key]} key={index}>{key}</option>)
                                                         })
                                                     }
                                                 </select>
@@ -87,7 +94,7 @@ const PostList = () => {
                                         </div>
                                     </fieldset>
                                     <div className="text-center">
-                                        <button type="button" className="btn btn-primary">Filter <i className="fas fa-search ml-2"></i></button>
+                                        <button onClick={getData} type="button" className="btn btn-primary">Filter <i className="fas fa-search ml-2"></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -116,7 +123,7 @@ const PostList = () => {
                             </thead>
                             <tbody>
                                 {
-                                    posts.map((post, index) => {
+                                    data.map((post, index) => {
                                         return (
                                             <tr key={index}>
                                                 <td className="text-center">{post.title}</td>
