@@ -7,19 +7,28 @@ const PostAdd = () => {
     const [thumbnail, setThumbnail] = useState(null);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
-    const [url, setUrl] = useState('');
+    const [image1, setImage1] = useState('');
+    const [image2, setImage2] = useState('');
     const [duration, setDuration] = useState('3');
 
-    const handleFileChange = (file) => {
+    const handleThumb = (file) => {
         setThumbnail(file);
     };
 
+    const handleImage1 = (file) => {
+        setImage1(file);
+    };
+
+    const handleImage2 = (file) => {
+        setImage2(file);
+    };
+
     const handleSubmit = () => {
-        if (!title || !description || !url){
+        if (!title || !description || !image1 || !image2){
             return
         }
 
-        addBlog(title, thumbnail, description, url, duration).then(response =>(response.json())).then(res => {
+        addBlog(title, thumbnail, description, image1, image2, duration).then(response =>(response.json())).then(res => {
             if (res.status === 200) {
                 window.location.href='/posts'
             } else
@@ -55,18 +64,31 @@ const PostAdd = () => {
                                 {description? '' : (<span className="form-text text-danger" >Please input the description</span>)}
                             </div>
 
-                            <div className="form-group">
-                                <label>URL:</label>
-                                <input value={url} onChange={(e) => setUrl(e.target.value)} id="url" type="text" className="form-control" placeholder=""/>
-                                {url? '' : (<span className="form-text text-danger" >Please input the url</span>)}
-                            </div>
-
-                            <div id="thumbnails">
+                            <div className="form-group" id="thumbnails">
                                 <FileUploader
-                                    handleChange={handleFileChange}
+                                    handleChange={handleThumb}
                                     name="file"
                                     types={fileTypes}
                                     />
+                                {thumbnail? '' : (<span className="form-text text-danger" >Please upload the thumbnail</span>)}
+                            </div>
+
+                            <div className="form-group" id="image1">
+                                <FileUploader
+                                    handleChange={handleImage1}
+                                    name="file"
+                                    types={fileTypes}
+                                    />
+                                {image1? '' : (<span className="form-text text-danger" >Please upload the first image</span>)}
+                            </div>
+                            
+                            <div className="form-group" id="image2">
+                                <FileUploader
+                                    handleChange={handleImage2}
+                                    name="file"
+                                    types={fileTypes}
+                                    />
+                                {image2? '' : (<span className="form-text text-danger" >Please upload the second image</span>)}
                             </div>
 
                             <div className="centered-row">

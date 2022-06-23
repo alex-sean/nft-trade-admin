@@ -44,8 +44,8 @@ function login(email, password){
     return postRequest('admin/login', {email, password})
 }
 
-function addBlog(title, thumbnail, description, url, duration){
-    return formRequest('blog/add', {title, thumbnail, description, url, duration})
+function addBlog(title, thumbnail, description, image1, image2, duration){
+    return formRequest('blog/add', {title, thumbnail, description, image1, image2, duration})
 }
 
 function blogList(limit, offset, title, content, status){
