@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import {blogList, deleteBlog} from '../adapter/api'
+import Utf8 from 'crypto-js/enc-utf8';
+import Base64 from 'crypto-js/enc-base64';
 
 const STATUS_DATA = {
     PENDING: 0,
@@ -116,7 +118,6 @@ const PostList = () => {
                                 <tr>
                                     <th className="text-center">Title</th>
                                     <th className="text-center">Content</th>
-                                    <th className="text-center">URL</th>
                                     <th className="text-center">Status</th>
                                     <th className="text-center">Operation</th>
                                 </tr>
@@ -126,9 +127,8 @@ const PostList = () => {
                                     data.map((post, index) => {
                                         return (
                                             <tr key={index}>
-                                                <td className="text-center">{post.title}</td>
-                                                <td className="text-center">{post.description}</td>
-                                                <td className="text-center"><a href={post.url}>{post.url}</a></td>
+                                                <td className="text-center">{Utf8.stringify(Base64.parse(post.title))}</td>
+                                                <td className="text-center">{Utf8.stringify(Base64.parse(post.description))}</td>
                                                 <td className="text-center">{post.status}</td>
                                                 <td className="text-center">
                                                     <a className="ryma-btn-cursor" ><h5 className="m-0 p-0"><span className="badge badge-primary js-token-detail-image">List</span></h5></a>

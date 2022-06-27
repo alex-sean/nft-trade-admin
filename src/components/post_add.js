@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { FileUploader } from "react-drag-drop-files";
 import { addBlog } from '../adapter/api';
+import Utf8 from 'crypto-js/enc-utf8';
+import Base64 from 'crypto-js/enc-base64';
 
 const PostAdd = () => {
     const fileTypes = ["JPEG", "JPG", "PNG", "GIF"];
@@ -28,7 +30,7 @@ const PostAdd = () => {
             return
         }
 
-        addBlog(title, thumbnail, description, image1, image2, duration).then(response =>(response.json())).then(res => {
+        addBlog(Base64.stringify(Utf8.parse( title)), thumbnail, Base64.stringify(Utf8.parse(description)), image1, image2, duration).then(response =>(response.json())).then(res => {
             if (res.status === 200) {
                 window.location.href='/posts'
             } else

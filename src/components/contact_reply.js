@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {getContact, replyContact} from '../adapter/api'
+import Utf8 from 'crypto-js/enc-utf8';
+import Base64 from 'crypto-js/enc-base64';
 
 const ContactReply = () => {
     const [contact, setContact] = useState({})
@@ -13,7 +15,7 @@ const ContactReply = () => {
     }, [])
 
     const handleReply = () => {
-        replyContact(localStorage.getItem('contactId'), reply)
+        replyContact(localStorage.getItem('contactId'), Base64.stringify(Utf8.parse(reply)))
     }
     
     return (

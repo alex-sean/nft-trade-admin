@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import ReactPaginate from 'react-paginate';
 import {contactList} from '../adapter/api'
+import Utf8 from 'crypto-js/enc-utf8';
+import Base64 from 'crypto-js/enc-base64';
 
 const TYPE_DATA = {
     NFT: 0,
@@ -141,7 +143,7 @@ const ContactList = () => {
                                                 <td className="text-center">{contact.name}</td>
                                                 <td className="text-center">{contact.email}</td>
                                                 <td className="text-center">NFT</td>
-                                                <td className="text-center">{contact.content}</td>
+                                                <td className="text-center">{Utf8.stringify(Base64.parse(contact.content))}</td>
                                                 <td className="text-center">{contact.reply}</td>
                                                 <td className="text-center">Replied</td>
                                                 <td className="text-center">
