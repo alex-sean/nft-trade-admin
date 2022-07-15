@@ -11,13 +11,12 @@ const STATUS_DATA = {
 const UserList = () => {
     const [pageCount, setPageCount] = useState(0);
     const [users, setUsers] = useState([])
-    const [name, setName] = useState('')
     const [address, setAddress] = useState('')
-    const [description, setDescription] = useState('')
+    const [keyword, setKeyword] = useState('')
     const [status, setStatus] = useState('')
 
     const getUsers = () => {
-        userList(10, 0, name, address, description, status).then(res => res.json()).then(res => {
+        userList(10, 0, address, keyword, status).then(res => res.json()).then(res => {
             if (res.status === 200)
                 setUsers(res.data.users)
         })
@@ -33,7 +32,7 @@ const UserList = () => {
 
     const verify = (e) => {
         let user = e.user
-        verifyUser(user.id, 1).then(res => res.json()).then(res => {
+        verifyUser(user.address, 1).then(res => res.json()).then(res => {
             if (res.status === 200)
                 window.location.reload(false);
         })
@@ -41,11 +40,7 @@ const UserList = () => {
 
     const ignore = (e) => {
         let user = e.user
-        // deleteUser(user.id).then(res => res.json()).then(res => {
-        //     if (res.status === 200)
-        //         window.location.reload(false);
-        // })
-        verifyUser(user.id, 2).then(res => res.json()).then(res => {
+        verifyUser(user.address, 2).then(res => res.json()).then(res => {
             if (res.status === 200)
                 window.location.reload(false);
         })
@@ -67,27 +62,21 @@ const UserList = () => {
                                 <div className="card-body">
                                     <fieldset>
                                         <div className="form-group row">
-                                            <label className="col-form-label col-lg-2">Name</label>
-                                            <div className="col-lg-10">
-                                                <input value={name} onChange={(e) => setName(e.target.value)} id="search_name" type="text" className="form-control" />
-                                            </div>
-                                        </div>
-                                        <div className="form-group row">
                                             <label className="col-form-label col-lg-2">Address</label>
                                             <div className="col-lg-10">
-                                                <input value={address} onChange={(e) => setAddress(e.target.value)} id="search_name" type="text" className="form-control" />
+                                                <input value={address} onChange={(e) => setAddress(e.target.value)} id="search_address" type="text" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label className="col-form-label col-lg-2">Description</label>
+                                            <label className="col-form-label col-lg-2">Keyword</label>
                                             <div className="col-lg-10">
-                                                <input value={description} onChange={(e) => setDescription(e.target.value)} id="search_name" type="text" className="form-control" />
+                                                <input value={keyword} onChange={(e) => setKeyword(e.target.value)} id="search_keyword" type="text" className="form-control" />
                                             </div>
                                         </div>
                                         <div className="form-group row">
                                             <label className="col-form-label col-lg-2">Status</label>
                                             <div className="col-lg-10">
-                                                <select value={status} onChange={(e) => setStatus(e.target.value)} id="search_category" className="form-control">
+                                                <select value={status} onChange={(e) => setStatus(e.target.value)} id="search_status" className="form-control">
                                                     <option value="">All</option>
                                                     {
                                                         Object.keys(STATUS_DATA).map((key, index) => {

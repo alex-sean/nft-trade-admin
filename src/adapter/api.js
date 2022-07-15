@@ -88,8 +88,8 @@ function addUser(name, email, description, twitter_account, address, avatar){
     return postRequest('user/add', {name, email, description, twitter_account, address, avatar})
 }
 
-function userList(limit, offset, name, address, description, status){
-    return getRequest('user/list', {limit, offset, name, address, description, status})
+function userList(limit, offset, address, keyword, status){
+    return getRequest('user/list', {limit, offset, address, keyword, status})
 }
 
 function getUser(address){
@@ -100,8 +100,8 @@ function updateUser(address, avatar){
     return postRequest('user/update', {address, avatar})
 }
 
-function verifyUser(id, status){
-    return postRequest('user/verify', {id, status})
+function verifyUser(address, status){
+    return postRequest('user/verify', {address, status})
 }
 
 function deleteUser(id){
