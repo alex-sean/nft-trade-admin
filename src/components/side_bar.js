@@ -26,7 +26,7 @@ const SideBar = (props) => {
                         <li className="nav-item">
                             <a href="/tokens" className={`nav-link ${link==='tokens' ? 'active' : ''}`}>
                                 <i className="fas fa-coins"></i>
-                                <span>Tokens</span>
+                                <span>Collections</span>
                             </a>
                         </li>
                         <li className="nav-item">

@@ -108,6 +108,19 @@ function deleteUser(id){
     return postRequest('user/delete', {id}, 'DELETE')
 }
 
+function collectionList(limit, from, keyword, category, sort){
+    return getRequest('token/collection', {category, keyword, from, limit, sort})
+}
+
+function verifyCollection(collectionAddress, status){
+    return postRequest('token/verify_collection', {collectionAddress, status})
+}
+
+function setFeaturedCollection(collectionAddress, status){
+    return postRequest('token/set_featured', {collectionAddress, status})
+}
+
+
 module.exports = {
     login,
     addBlog,
@@ -126,4 +139,7 @@ module.exports = {
     updateUser,
     verifyUser,
     deleteUser,
+    collectionList,
+    verifyCollection,
+    setFeaturedCollection
 }

@@ -68,7 +68,7 @@ const UserList = () => {
                                             </div>
                                         </div>
                                         <div className="form-group row">
-                                            <label className="col-form-label col-lg-2">Keyword</label>
+                                            <label className="col-form-label col-lg-2">Name</label>
                                             <div className="col-lg-10">
                                                 <input value={keyword} onChange={(e) => setKeyword(e.target.value)} id="search_keyword" type="text" className="form-control" />
                                             </div>
