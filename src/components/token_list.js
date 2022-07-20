@@ -49,7 +49,7 @@ const TokenList = () => {
 
     const setFeature = (e) => {
         let token = e.token
-        verifyCollection(token.collectionAddress, 2).then(res => res.json()).then(res => {
+        setFeaturedCollection(token.collectionAddress, 2).then(res => res.json()).then(res => {
             if (res.status === 200)
                 window.location.reload(false);
         })
