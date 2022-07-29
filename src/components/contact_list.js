@@ -140,7 +140,7 @@ const ContactList = () => {
                                     contacts.map((contact, index) => {
                                         return (
                                             <tr key={contact.id}>
-                                                <td className="text-center">{contact.name}</td>
+                                                <td className="text-center">{Utf8.stringify(Base64.parse(contact.name))}</td>
                                                 <td className="text-center">{contact.email}</td>
                                                 <td className="text-center">NFT</td>
                                                 <td className="text-center">{Utf8.stringify(Base64.parse(contact.content))}</td>

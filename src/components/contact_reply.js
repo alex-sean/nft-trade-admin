@@ -36,7 +36,7 @@ const ContactReply = () => {
                         <div className="card-body">
                             <div className="form-group">
                                 <label>Name:</label>
-                                <input id="name" type="text" className="form-control" value={contact.name} disabled/>
+                                <input id="name" type="text" className="form-control" value={Utf8.stringify(Base64.parse(contact.name))} disabled/>
                             </div>
 
                             <div className="form-group">
@@ -51,7 +51,7 @@ const ContactReply = () => {
 
                             <div className="form-group">
                                 <label>Content:</label>
-                                <textarea id="content" type="text" className="form-control" value={contact.content} disabled></textarea>
+                                <textarea id="content" type="text" className="form-control" value={Utf8.stringify(Base64.parse(contact.content))} disabled></textarea>
                             </div>
 
                             <div className="form-group">
