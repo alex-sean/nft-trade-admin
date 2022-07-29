@@ -21,7 +21,7 @@ export default function Login(){
     return (
         <div className="content-wrapper" style={{width: '100%', height: '100%'}}>
             <div className="content d-flex justify-content-center align-items-center">
-                <form className="login-form" onSubmit={handleSubmit}>
+                <div className="login-form">
                     <div className="card mb-0">
                         <div className="card-body">
                             <div className="text-center mb-3">
@@ -45,7 +45,7 @@ export default function Login(){
                             </div>
 
                             <div className="form-group">
-                                <button type="submit" className="btn btn-primary btn-block">Sign in <i className="icon-circle-right2 ml-2"></i></button>
+                                <button onClick={handleSubmit} className="btn btn-primary btn-block">Sign in <i className="icon-circle-right2 ml-2"></i></button>
                             </div>
 
                             {/* <div className="text-center">
@@ -53,7 +53,7 @@ export default function Login(){
                             </div> */}
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     );
