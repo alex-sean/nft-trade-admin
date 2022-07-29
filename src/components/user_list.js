@@ -123,7 +123,7 @@ const UserList = () => {
                                     users.map((user, index) => {
                                         return (
                                             <tr key={index}>
-                                                <td className="text-center"><img src={`${user.address}.png`} className="img-thumbnail ryma-token-thumbnail"/></td>
+                                                <td className="text-center"><img src={`${process.env.REACT_APP_AVATAR_PATH}/${user.avatar}`} className="img-thumbnail ryma-token-thumbnail"/></td>
                                                 <td className="text-center">{user.name}</td>
                                                 <td className="text-center">{user.address}</td>
                                                 <td className="text-center">{user.description}</td>
