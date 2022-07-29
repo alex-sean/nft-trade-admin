@@ -28,7 +28,7 @@ const Header = () => {
                     <i className="icon-paragraph-justify3"></i>
                 </button>
             </div>
-            <div className="collapse navbar-collapse" id="navbar-mobile">
+            {/* <div className="collapse navbar-collapse" id="navbar-mobile">
                 <ul className="navbar-nav">
                     <li className="nav-item">
                         <a href="#" className="navbar-nav-link sidebar-control sidebar-main-toggle d-none d-md-block">
@@ -50,7 +50,7 @@ const Header = () => {
                         </div>
                     </li>
                 </ul>
-            </div>
+            </div> */}
         </div>
     );
 }
